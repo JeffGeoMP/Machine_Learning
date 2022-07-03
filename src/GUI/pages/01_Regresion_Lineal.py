@@ -1,13 +1,11 @@
 import sys
+from os.path import dirname, abspath
 
+path = dirname(dirname(dirname(abspath(__file__)))) + "\Helpers"
+sys.path.append(path)
 
-sys.path.append('D:\\Repositorios\\Machine_Learning\\src\\Helpers')
-print("HOLA PERRITO")
-print(sys.path)
-
-import HandlerFiles as Files
 import streamlit as st
-
+import HandlerFiles as Files
 
 
 st.markdown("# Regresion Lineal")

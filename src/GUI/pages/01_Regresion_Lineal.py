@@ -1,9 +1,7 @@
 
 import streamlit as st
 import matplotlib.pyplot as plt
-from PIL import Image
-import numpy as np
-from sklearn import datasets, linear_model
+from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 
 import Helpers.HandlerFiles as Files
@@ -32,6 +30,8 @@ def algoritmo():
     if df is not None:
         operation = Parameters.OperationsRegressions(
             "Operaciones para Regresion Lineal")
+
+        st.subheader("Parametros")
 
         if operation == 0:
             columnNameX = Parameters.SelectAxis(

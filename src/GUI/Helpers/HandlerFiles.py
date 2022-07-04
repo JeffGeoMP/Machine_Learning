@@ -4,11 +4,10 @@ import pandas as pd
 
 
 # Importacion de archivo
-def uploadFile():
-    labelFiles = "1. Seleccione el Archivo a Analizar"  # Label para UI upload file
+def uploadFile(id:str):
     typeFilesSupport = ['csv', 'xls', 'xlsx', 'json']  # Tipos soportados
 
-    uploadFile = st.file_uploader(label=labelFiles, type=typeFilesSupport)
+    uploadFile = st.file_uploader(label=id, type=typeFilesSupport)
     df = None
 
     if uploadFile is not None:

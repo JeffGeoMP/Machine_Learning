@@ -23,13 +23,17 @@ def information():
 
 def algoritmo():
     information()
-    st.subheader("Algoritmo")
+    st.title("Algoritmo - Regresión Lineal")
 
-    df = Files.uploadFile()
+    st.subheader("Carga de Archivo")
+    df = Files.uploadFile("Seleccione el Archivo")
 
     if df is not None:
+
+        st.subheader("Operaciones")
+
         operation = Parameters.OperationsRegressions(
-            "Operaciones para Regresion Lineal")
+            "Seleccione la Operación a Realizar")
 
         st.subheader("Parametros")
 

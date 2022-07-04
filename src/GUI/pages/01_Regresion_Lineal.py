@@ -35,7 +35,7 @@ def algoritmo():
         operation = Parameters.OperationsRegressions(
             "Seleccione la Operación a Realizar")
 
-        st.subheader("Parametros")
+        st.subheader("Parámetros")
 
         if operation == 0:
             columnNameX = Parameters.SelectAxis(
@@ -53,23 +53,24 @@ def algoritmo():
                     st.subheader("Resultados")
                  
                     fig, ax = plt.subplots(1,1)  #Cantidad de Graficas Filas y Columnas
-                    fig.text(.5, -0.06, "Dispersion de Puntos, Segun las Columnas Seleccionadas", style = 'italic', fontsize= 8, ha='center', color = "blue")
-                    ax.title.set_text('Grafica de Dispersion')
+                    fig.suptitle('Gráfica de Tendencia\n' + columnNameX +" vs " + columnNameY, fontsize="10")
+                    fig.text(.5, -0.06, "Dispersión de Puntos, Según las Columnas Seleccionadas", style = 'italic', fontsize= 8, ha='center', color = "red")
+                    ax.grid()
                     ax.set_xlabel(columnNameX)
                     ax.set_ylabel(columnNameY)
-                    ax.scatter(X,Y)
+                    ax.scatter(X,Y, color="coral")
                     
                     st.pyplot(fig)
 
                 except:
-                    st.error("No se ha podido Ejecutar La Operacion, Seleccione Otras Columnas y Vuelva a Intentar")
+                    st.error("No se ha podido Ejecutar La Operación, Seleccione Otras Columnas y Vuelva a Intentar")
             
             else:
                 st.warning("Las Columnas Deben De Ser Diferentes")
 
         if operation == 1:
-            columnNameX = Parameters.SelectAxis("Seleccione Eje X para Definir Funcion de Tendencia", df)
-            columnNameY = Parameters.SelectAxis("Seleccione Eje Y para Definir Funcion de Tendencia", df)
+            columnNameX = Parameters.SelectAxis("Seleccione Eje X para Definir Función de Tendencia", df)
+            columnNameY = Parameters.SelectAxis("Seleccione Eje Y para Definir Función de Tendencia", df)
 
             if columnNameX != columnNameY:
 
@@ -99,28 +100,29 @@ def algoritmo():
                     st.latex(errorMeanStr)
                     st.latex(r2Str)
 
-                    st.write("Grafica de Tendencia")
+                    st.write("Gráfica de Tendencia")
 
                     fig, ax = plt.subplots(1,1)  #Cantidad de Graficas Filas y Columnas
-                    fig.text(.5, -0.06, "Dispersion de Puntos, Con Tendencia", style = 'italic', fontsize= 8, ha='center', color = "blue")
-                    ax.title.set_text('Grafica de Tendencia')
+                    fig.text(.5, -0.06, "Dispersión de Puntos, Con Tendencia", style = 'italic', fontsize= 8, ha='center', color = "blue")
+                    fig.suptitle('Gráfica de Tendencia\n' + columnNameX +" vs " + columnNameY, fontsize="10")
+                    ax.grid()
                     ax.set_xlabel(columnNameX)
                     ax.set_ylabel(columnNameY)
-                    ax.scatter(X,Y)
-                    ax.plot(X, Y_PREDICT, color="red")
+                    ax.scatter(X,Y, color="coral")
+                    ax.plot(X, Y_PREDICT, color="orangered")
                     
                     st.pyplot(fig)
 
 
                 except:
-                    st.error("No se ha podido Ejecutar La Operacion, Seleccione Otras Columnas y Vuelva a Intentar")
+                    st.error("No se ha podido Ejecutar La Operación, Seleccione Otras Columnas y Vuelva a Intentar")
             
             else:
                 st.warning("Las Columnas Deben De Ser Diferentes")
 
         if operation == 2:
-            columnNameX = Parameters.SelectAxis("Seleccione Eje X para Realizar Prediccion del Modelo", df)
-            columnNameY = Parameters.SelectAxis("Seleccione Eje Y para Realizar Prediccion del Modelo", df)
+            columnNameX = Parameters.SelectAxis("Seleccione Eje X para Realizar Predicción del Modelo", df)
+            columnNameY = Parameters.SelectAxis("Seleccione Eje Y para Realizar Predicción del Modelo", df)
             numberPredict = Parameters.NumberInput()
 
             if columnNameX != columnNameY and numberPredict > 0:
@@ -153,13 +155,13 @@ def algoritmo():
                     st.latex(errorMeanStr)
                     st.latex(r2Str)
 
-                    st.write("Prediccion")
+                    st.write("Predicción")
                     predictionStr = "Prediccion = {0}".format(Y_NEW_PREDICTION[0])
                     st.latex(predictionStr)
 
 
                 except:
-                    st.error("No se ha podido Ejecutar La Operacion, Ingrese Nuevos Valores y Vuelva a Intentar")
+                    st.error("No se ha podido Ejecutar La Operación, Ingrese Nuevos Valores y Vuelva a Intentar")
             
             else:
                 st.warning("Las Columnas Deben De Ser Diferentes y La Predicion Mayor a 0")

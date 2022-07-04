@@ -18,9 +18,9 @@ def information():
     st.sidebar.write(
         "La regresión polinomial es un modelo de análisis de regresión en el que la relación entre la variable independiente X y la variable dependiente " +
          "Y se modela con un polinomio de n-ésimo grado en X. La regresión polinomial se ajusta a una relación no " +
-         "lineal entre el valor de X y la media condicional correspondiente de Y, denotada E [Y|X] " 
+         "lineal entre el valor de X y la media condicional correspondiente de Y, denotada `E [Y|X]` " 
          "Aunque la regresión polinomial ajusta un modelo no lineal a los datos, como problema de estimación estadística es lineal, en el sentido de que la función de " + 
-         "regresión E [Y|X] es lineal en los parámetros desconocidos que se estiman a partir de " +
+         "regresión `E [Y|X]` es lineal en los parámetros desconocidos que se estiman a partir de " +
          "los datos. Por esta razón, la regresión polinomial se considera un caso especial de regresión lineal múltiple.")
     
     st.sidebar.write("Las variables explicativas (independientes) que resultan de la expansión polinomial de las variables de \"línea base\" se conocen como términos de grado superior. " +

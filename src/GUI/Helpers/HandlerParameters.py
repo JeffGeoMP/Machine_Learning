@@ -21,5 +21,9 @@ def SelectAxis(id:str, df:DataFrame):
 
 
 def NumberInput():
-    number = st.number_input("Ingrese valor a predecir")
+    number = st.number_input("Ingrese valor a predecir", min_value=1)
+    return number
+
+def NumberInputInteger(id:str):
+    number = st.number_input(id, min_value=1, step=1)
     return number

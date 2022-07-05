@@ -53,68 +53,69 @@ def algoritmo():
                     predictValues.append(col.selectbox(str(i), df[i].unique(), 0))
                     count = count + 1
 
-                # Comenzammos el algoritmo del arbol
-                le = preprocessing.LabelEncoder()
+                resButton = st.button("Ejecutar Algoritmo")
+                if resButton : 
+                    # Comenzammos el algoritmo del arbol
+                    le = preprocessing.LabelEncoder()
 
-                # Codificamos valores para las columnas seleccionadas y los valores de prediccion
-                encodedList = []
-                encodedPredict = []
-                count = 0
-                for i in columnsClassifiquer:
-                    encodedList.append(le.fit_transform(df[i]))
-                    encodedPredict.append(np.where(le.classes_ == predictValues[count])[0][0])  # buscamos clase para prediccion
-                    count = count + 1
+                    # Codificamos valores para las columnas seleccionadas y los valores de prediccion
+                    encodedList = []
+                    encodedPredict = []
+                    count = 0
+                    for i in columnsClassifiquer:
+                        encodedList.append(le.fit_transform(df[i]))
+                        encodedPredict.append(np.where(le.classes_ == predictValues[count])[0][0])  # buscamos clase para prediccion
+                        count = count + 1
 
-                #Hacemos tuplas con la codificacion anterior
-                features = list(zip(*encodedList))
+                    #Hacemos tuplas con la codificacion anterior
+                    features = list(zip(*encodedList))
 
-                # Codificamos columna Clase
-                encodedClass = le.fit_transform(df[columnClass])
+                    # Codificamos columna Clase
+                    encodedClass = le.fit_transform(df[columnClass])
 
-                # Creacion y entrenamiendo del modelo
-                clf = DecisionTreeClassifier().fit(features, encodedClass)
+                    # Creacion y entrenamiendo del modelo
+                    clf = DecisionTreeClassifier().fit(features, encodedClass)
                 
 
-                #Prediccion 
-                prediction = clf.predict([encodedPredict])
-                predictClass = le.inverse_transform(prediction)
+                    #Prediccion 
+                    prediction = clf.predict([encodedPredict])
+                    predictClass = le.inverse_transform(prediction)
 
-                #Resultados
-                st.markdown("""---""")
-                st.subheader("Resultados")
-                st.write("Matriz Codificada para Columnas de Clasificación Seleccionadas")
-                st.dataframe(features)
+                    #Resultados
+                    st.markdown("""---""")
+                    st.subheader("Resultados")
+                    st.write("Matriz Codificada para Columnas de Clasificación Seleccionadas")
+                    st.dataframe(features)
 
-                st.write("Valores de Predicción Codificados")
-                predictStr = ""
-                countTemp = 0
-                for i in predictValues:
-                    predictStr += "{0} \\rightarrow {1} \\newline \n".format(i, encodedPredict[countTemp])
-                    countTemp = countTemp + 1
+                    st.write("Valores de Predicción Codificados")
+                    predictStr = ""
+                    countTemp = 0
+                    for i in predictValues:
+                        predictStr += "{0} \\rightarrow {1} \\newline \n".format(i, encodedPredict[countTemp])
+                        countTemp = countTemp + 1
                 
-                st.latex(predictStr)
+                    st.latex(predictStr)
 
-                st.write("Prediccion")
-                predictionStr= "Prediccion \\rightarrow {0}".format(predictClass[0])
-                st.latex(predictionStr)
+                    st.write("Prediccion")
+                    predictionStr= "Prediccion \\rightarrow {0}".format(predictClass[0])
+                    st.latex(predictionStr)
 
-                #Funciona localmente
-                #st.write("Árbol de Decisión")
-                #fig, ax = plt.subplots(figsize=(12,12))
-                #fig.suptitle('Árbol de Decisiones', fontsize="20")
-                #fig.text(.5, -0.025, "Decisiones, Según las Columnas Seleccionadas", style = 'italic', fontsize= 15, ha='center', color = "red")
-                #plot_tree(clf, filled=True)
-                #st.pyplot(fig)
+                    #Funciona localmente
+                    #st.write("Árbol de Decisión")
+                    #fig, ax = plt.subplots(figsize=(12,12))
+                    #fig.suptitle('Árbol de Decisiones', fontsize="20")
+                    #fig.text(.5, -0.025, "Decisiones, Según las Columnas Seleccionadas", style = 'italic', fontsize= 15, ha='center', color = "red")
+                    #plot_tree(clf, filled=True)
+                    #st.pyplot(fig)
 
-                #Funciona en streamlit
-                st.write("Árbol de Decisión")
-                dot = export_graphviz(clf, out_file=None, filled=True, rounded=True, special_characters=True)
-                st.graphviz_chart(dot)
+                    #Funciona en streamlit
+                    st.write("Árbol de Decisión")
+                    dot = export_graphviz(clf, out_file=None, filled=True, rounded=True, special_characters=True)
+                    st.graphviz_chart(dot)
 
-                st.write("Codigo .dot")
-                st.write(dot)
+                    st.write("Codigo .dot")
+                    st.write(dot)
                 
-
             except Exception as e:
                 st.warning("No Se A Podido Ejecutar La Operación, Seleccione Nuevos Parametros y Vuelva a Intentar")
                 print(e)

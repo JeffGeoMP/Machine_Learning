@@ -54,48 +54,50 @@ def algoritmo():
                     count = count + 1
 
                 # Comenzammos el algoritmo de Gauss
-                le = preprocessing.LabelEncoder()
-
-                # Codificamos valores para las columnas seleccionadas y los valores de prediccion
-                encodedList = []
-                encodedPredict = []
-                count = 0
-                for i in columnsClassifiquer:
-                    encodedList.append(le.fit_transform(df[i]))
-                    encodedPredict.append(np.where(le.classes_ == predictValues[count])[0][0])  # buscamos clase para prediccion
-                    count = count + 1
-
-                #Hacemos tuplas con la codificacion anterior
-                features = list(zip(*encodedList))
-
-                # Codificamos columna Clase
-                encodedClass = le.fit_transform(df[columnClass])
-
-                # Creacion y entrenamiendo del modelo Gaussiano
-                model = GaussianNB()
-                model.fit(features, encodedClass)
-
-                predict = model.predict([encodedPredict])
-                predictClass = le.inverse_transform(predict)
-
-                #Resultados
-                st.markdown("""---""")
-                st.subheader("Resultados")
-                st.write("Matriz Codificada para Columnas de Clasificación Seleccionadas")
-                st.dataframe(features)
-
-                st.write("Valores de Predicción Codificados")
-                predictStr = ""
-                countTemp = 0
-                for i in predictValues:
-                    predictStr += "{0} \\rightarrow {1} \\newline \n".format(i, encodedPredict[countTemp])
-                    countTemp = countTemp + 1
-                
-                st.latex(predictStr)
-
-                st.write("Prediccion")
-                predictionStr= "Prediccion \\rightarrow {0}".format(predictClass[0])
-                st.latex(predictionStr)
+                resButton = st.button("Ejecutar Algoritmo")
+                if resButton :
+                    le = preprocessing.LabelEncoder()
+    
+                    # Codificamos valores para las columnas seleccionadas y los valores de prediccion
+                    encodedList = []
+                    encodedPredict = []
+                    count = 0
+                    for i in columnsClassifiquer:
+                        encodedList.append(le.fit_transform(df[i]))
+                        encodedPredict.append(np.where(le.classes_ == predictValues[count])[0][0])  # buscamos clase para prediccion
+                        count = count + 1
+    
+                    #Hacemos tuplas con la codificacion anterior
+                    features = list(zip(*encodedList))
+    
+                    # Codificamos columna Clase
+                    encodedClass = le.fit_transform(df[columnClass])
+    
+                    # Creacion y entrenamiendo del modelo Gaussiano
+                    model = GaussianNB()
+                    model.fit(features, encodedClass)
+    
+                    predict = model.predict([encodedPredict])
+                    predictClass = le.inverse_transform(predict)
+    
+                    #Resultados
+                    st.markdown("""---""")
+                    st.subheader("Resultados")
+                    st.write("Matriz Codificada para Columnas de Clasificación Seleccionadas")
+                    st.dataframe(features)
+    
+                    st.write("Valores de Predicción Codificados")
+                    predictStr = ""
+                    countTemp = 0
+                    for i in predictValues:
+                        predictStr += "{0} \\rightarrow {1} \\newline \n".format(i, encodedPredict[countTemp])
+                        countTemp = countTemp + 1
+                    
+                    st.latex(predictStr)
+    
+                    st.write("Prediccion")
+                    predictionStr= "Prediccion \\rightarrow {0}".format(predictClass[0])
+                    st.latex(predictionStr)
 
             except Exception as e:
                 st.warning("No Se A Podido Ejecutar La Operación, Seleccione Nuevos Parametros y Vuelva a Intentar")

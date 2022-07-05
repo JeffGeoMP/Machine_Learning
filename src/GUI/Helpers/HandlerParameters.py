@@ -1,3 +1,4 @@
+from click import option
 from pandas import DataFrame
 import streamlit as st
 
@@ -27,3 +28,18 @@ def NumberInput():
 def NumberInputInteger(id:str):
     number = st.number_input(id, min_value=1, step=1)
     return number
+
+
+def SelectColumns(id:str, df:DataFrame):
+    options = df.columns.values
+    optionSelects = st.multiselect(id, options, options[0])
+    return optionSelects
+    
+def SelectColumn(id:str, df:DataFrame):
+    options = df.columns.values
+    optionSelect = st.selectbox(id, options, 0)
+    return optionSelect
+
+
+    
+    

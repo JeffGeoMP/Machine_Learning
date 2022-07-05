@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 from sklearn import preprocessing
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn import preprocessing
@@ -102,7 +103,11 @@ def algoritmo():
                 fig.suptitle('Árbol de Decisiones', fontsize="20")
                 fig.text(.5, -0.025, "Decisiones, Según las Columnas Seleccionadas", style = 'italic', fontsize= 15, ha='center', color = "red")
                 plot_tree(clf, filled=True)
-                st.pyplot(fig)
+                plt.savefig("files/tree.png")
+                plt.close()
+
+                image = Image.open("files/tree.png")
+                st.image(image, caption='Correlacion de Puntos, Sobre las Columnas Seleccioandas')
 
             except Exception as e:
                 st.warning("No Se A Podido Ejecutar La Operación, Seleccione Nuevos Parametros y Vuelva a Intentar")

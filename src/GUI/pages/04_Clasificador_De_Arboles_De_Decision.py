@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 from sklearn import preprocessing
-from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.tree import DecisionTreeClassifier, plot_tree, export_graphviz
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,7 +19,7 @@ def information():
                     "de tus decisiones. Se denomina `árbol de decisiones` por su semejanza con un árbol con muchas ramas.")
 
     st.sidebar.write("Este método se usa para realizar un análisis que consiste en delinear de forma gráfica los posibles resultados, costos y consecuencias de " +
-                    "una decisión compleja. Se puede usar un árbol de decisiones para calcular el valor esperado de cada resultado en función de las decisiones tomadas " + 
+                    "una decisión compleja. Se puede usar un `árbol de decisiones` para calcular el valor esperado de cada resultado en función de las decisiones tomadas " + 
                     "y sus respectivas consecuencias. Luego, se puede comparar los diferentes resultados para determinar rápidamente cuál será el mejor plan de acción. " + 
                     "También se puede utilizar un árbol de decisiones para resolver problemas, gestionar costos e identificar oportunidades.​")
 
@@ -104,6 +104,33 @@ def algoritmo():
                 fig.text(.5, -0.025, "Decisiones, Según las Columnas Seleccionadas", style = 'italic', fontsize= 15, ha='center', color = "red")
                 plot_tree(clf, filled=True)
                 st.pyplot(fig)
+
+                #New Implemention
+                st.write("Árbol de Decisión")
+                dot = export_graphviz(clf, out_file=None, filled=True)
+                st.graphviz_chart(dot)
+
+                st.write("Codigo .dot")
+                st.write(dot)
+                
+
+                st.graphviz_chart('''
+                    digraph {
+                        run -> intr
+                        intr -> runbl
+                        runbl -> run
+                        run -> kernel
+                        kernel -> zombie
+                        kernel -> sleep
+                        kernel -> runmem
+                        sleep -> swap
+                        swap -> runswap
+                        runswap -> new
+                        runswap -> runmem
+                        new -> runmem
+                        sleep -> runmem
+                    }
+                ''')
 
             except Exception as e:
                 st.warning("No Se A Podido Ejecutar La Operación, Seleccione Nuevos Parametros y Vuelva a Intentar")

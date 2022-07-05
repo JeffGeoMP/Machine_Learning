@@ -98,39 +98,22 @@ def algoritmo():
                 predictionStr= "Prediccion \\rightarrow {0}".format(predictClass[0])
                 st.latex(predictionStr)
 
-                st.write("Árbol de Decisión")
-                fig, ax = plt.subplots(figsize=(12,12))
-                fig.suptitle('Árbol de Decisiones', fontsize="20")
-                fig.text(.5, -0.025, "Decisiones, Según las Columnas Seleccionadas", style = 'italic', fontsize= 15, ha='center', color = "red")
-                plot_tree(clf, filled=True)
-                st.pyplot(fig)
+                #Funciona localmente
+                #st.write("Árbol de Decisión")
+                #fig, ax = plt.subplots(figsize=(12,12))
+                #fig.suptitle('Árbol de Decisiones', fontsize="20")
+                #fig.text(.5, -0.025, "Decisiones, Según las Columnas Seleccionadas", style = 'italic', fontsize= 15, ha='center', color = "red")
+                #plot_tree(clf, filled=True)
+                #st.pyplot(fig)
 
-                #New Implemention
+                #Funciona en streamlit
                 st.write("Árbol de Decisión")
-                dot = export_graphviz(clf, out_file=None, filled=True)
+                dot = export_graphviz(clf, out_file=None, filled=True, rounded=True, special_characters=True)
                 st.graphviz_chart(dot)
 
                 st.write("Codigo .dot")
                 st.write(dot)
                 
-
-                st.graphviz_chart('''
-                    digraph {
-                        run -> intr
-                        intr -> runbl
-                        runbl -> run
-                        run -> kernel
-                        kernel -> zombie
-                        kernel -> sleep
-                        kernel -> runmem
-                        sleep -> swap
-                        swap -> runswap
-                        runswap -> new
-                        runswap -> runmem
-                        new -> runmem
-                        sleep -> runmem
-                    }
-                ''')
 
             except Exception as e:
                 st.warning("No Se A Podido Ejecutar La Operación, Seleccione Nuevos Parametros y Vuelva a Intentar")

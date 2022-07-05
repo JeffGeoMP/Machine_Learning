@@ -14,6 +14,15 @@ def OperationsRegressions(id:str):
     optionSelect = st.selectbox(id, options, 0)
     return options.index(optionSelect)
 
+def SolverNeuralNetwork(id:str):
+    options = (
+        "lbfgs",
+        "sgd",
+        "adam"
+    )
+    optionSelect = st.selectbox(id, options, 0)
+    return optionSelect
+
 
 def SelectAxis(id:str, df:DataFrame):
     options = df.columns.values

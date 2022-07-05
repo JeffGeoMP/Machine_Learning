@@ -109,9 +109,18 @@ def algoritmo():
                     #st.pyplot(fig)
 
                     #Funciona en streamlit
-                    st.write("Árbol de Decisión")
+                    st.write("Árbol de Decisión - Graphviz")
                     dot = export_graphviz(clf, out_file=None, filled=True, rounded=True, special_characters=True)
                     st.graphviz_chart(dot)
+
+
+                    st.write("Árbol de Decisión - Image")
+                    plot_tree(clf, filled=True)
+                    plt.savefig('tree.png')
+
+                    imageTree = Image.open('tree.png')
+                    st.image(imageTree, width = 1200, use_column_width = 'auto')
+
 
                     st.write("Codigo .dot")
                     st.write(dot)

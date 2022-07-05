@@ -3,6 +3,7 @@ import streamlit as st
 from sklearn import preprocessing
 from sklearn import preprocessing
 from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import classification_report
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -74,7 +75,7 @@ def algoritmo():
                 encodedClass = le.fit_transform(df[columnClass])
 
                 # Creacion y entrenamiendo del modelo
-                mlp = MLPClassifier(solver=solver, max_iter=1000, hidden_layer_sizes=(100,100,100), random_state=0, verbose=10).fit(features, encodedClass)
+                mlp = MLPClassifier(solver=solver, max_iter=500, hidden_layer_sizes=(100,100,100), random_state=0, verbose=10).fit(features, encodedClass)
                 prediction = mlp.predict([encodedPredict])
                 predictClass = le.inverse_transform(prediction)
                 
@@ -98,7 +99,7 @@ def algoritmo():
                 st.latex(predictStr)
 
                 st.write("Prediccion")
-                predictionStr= "Prediccion \\rightarrow {0}".format(predictClass[0])
+                predictionStr= "Predicción \\rightarrow {0}".format(predictClass[0])
                 st.latex(predictionStr)
 
             except Exception as e:

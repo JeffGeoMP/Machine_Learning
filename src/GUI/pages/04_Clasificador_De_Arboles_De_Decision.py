@@ -113,14 +113,15 @@ def algoritmo():
                     dot = export_graphviz(clf, out_file=None, filled=True, rounded=True, special_characters=True)
                     st.graphviz_chart(dot)
 
+                    try:
+                        st.write("Árbol de Decisión - Image")
+                        plot_tree(clf, filled=True)
+                        plt.savefig('tree.png')
 
-                    st.write("Árbol de Decisión - Image")
-                    plot_tree(clf, filled=True)
-                    plt.savefig('tree.png')
-
-                    imageTree = Image.open('tree.png')
-                    st.image(imageTree, width = 1200, use_column_width = 'auto')
-
+                        imageTree = Image.open('tree.png')
+                        st.image(imageTree, width = 1200, use_column_width = 'auto')
+                    except Exception as e: 
+                        print(e)
 
                     st.write("Codigo .dot")
                     st.write(dot)

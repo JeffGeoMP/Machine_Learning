@@ -13,6 +13,7 @@ import Helpers.HandlerParameters as Parameters
 def information():
     st.sidebar.write("## Clasificador Gaussiano 📑")
 
+    st.sidebar.write("¿Qué es?")
     st.sidebar.write(
         "El Clasificador Gaussiano es uno de los algoritmos más simples y poderosos para la clasificación basado en el Teorema de Bayes con una suposición " +
         "de independencia entre los predictores. El Clasificador Gaussiano es fácil de construir y particularmente útil para conjuntos de datos muy grandes.")

@@ -15,6 +15,7 @@ import Helpers.HandlerParameters as Parameters
 def information():
     st.sidebar.write("## Regresion Polinomial 📑")
 
+    st.sidebar.write("¿Qué es?")
     st.sidebar.write(
         "La regresión polinomial es un modelo de análisis de regresión en el que la relación entre la variable independiente X y la variable dependiente " +
          "Y se modela con un polinomio de n-ésimo grado en X. La regresión polinomial se ajusta a una relación no " +
@@ -36,11 +37,15 @@ def algoritmo():
 
     if df is not None:
 
+        st.write("Información Cargada")
+        st.dataframe(df)
+
+        st.markdown("""---""")
         st.subheader("Operaciones")
 
-        operation = Parameters.OperationsRegressions(
-            "Seleccione la Operación a Realizar")
+        operation = Parameters.OperationsRegressions("Seleccione la Operación a Realizar")
 
+        st.markdown("""---""")
         st.subheader("Parámetros")
 
         if operation == 0:
@@ -56,6 +61,7 @@ def algoritmo():
                     X = df[columnNameX].values.reshape((-1, 1))
                     Y = df[columnNameY]
 
+                    st.markdown("""---""")
                     st.subheader("Resultados")
                     st.write("Gráfica de Dispersión")
 
@@ -98,6 +104,7 @@ def algoritmo():
                         errorMean = round(mean_squared_error(Y, Y_POLYNOMIAL, squared=True) , 4)
                         r2 =  round(r2_score(Y, Y_POLYNOMIAL) , 4)
                     
+                        st.markdown("""---""")
                         st.subheader("Resultados")
 
                         modelStr = "y = {0} ".format(model.intercept_)
@@ -171,6 +178,7 @@ def algoritmo():
                     X_NEW_TRANSF = polynomial.fit_transform(X_NEW)
                     Y_NEW = model.predict(X_NEW_TRANSF)
                     
+                    st.markdown("""---""")
                     st.subheader("Resultados")
 
                     modelStr = "y = {0} ".format(model.intercept_)
@@ -194,7 +202,7 @@ def algoritmo():
                     st.latex(r2Str)
 
                     st.write("Predicción")
-                    predictionStr = "Prediccion = {0}".format(Y_NEW[Y_NEW.size-1])
+                    predictionStr = "Prediccion \\rightarrow {0}".format(Y_NEW[Y_NEW.size-1])
                     st.latex(predictionStr)
 
                 except:

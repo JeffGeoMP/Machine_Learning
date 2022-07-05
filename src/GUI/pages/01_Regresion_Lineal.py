@@ -12,10 +12,9 @@ PATH_FINAL_REPORT = "assets/LinearRegression.png"
 def information():
     st.sidebar.write("## Regresion Lineal 📑")
 
-    st.sidebar.write(
-        "Este algoritmo es un método estadístico que permite resumir y estudiar las relaciones entre dos variables continuas cuantitativas.")
-    st.sidebar.write(
-        "La Regresión Lineal es una técnica paramétrica que se utiliza para predecir variables continuas, dependientes, dado un conjunto de variables independientes. ")
+    st.sidebar.write("¿Qué es?")
+    st.sidebar.write("Este algoritmo es un método estadístico que permite resumir y estudiar las relaciones entre dos variables continuas cuantitativas.")
+    st.sidebar.write("La Regresión Lineal es una técnica paramétrica que se utiliza para predecir variables continuas, dependientes, dado un conjunto de variables independientes. ")
     st.sidebar.write("Es de naturaleza paramétrica porque hace ciertas suposiciones basadas en el conjunto de datos. Si el conjunto de datos sigue esas suposiciones," +
                      "la regresión arroja resultados increíbles, de lo contrario, tiene dificultades para proporcionar una precisión convincente." +
                      "Matemáticamente, la regresión usa una función lineal para aproximar o predecir la variable dependiente dada como: `y = mx + b`")
@@ -29,19 +28,20 @@ def algoritmo():
     df = Files.uploadFile("Seleccione el Archivo")
 
     if df is not None:
+        st.write("Información Cargada")
+        st.dataframe(df)
 
+        st.markdown("""---""")
         st.subheader("Operaciones")
 
-        operation = Parameters.OperationsRegressions(
-            "Seleccione la Operación a Realizar")
+        operation = Parameters.OperationsRegressions("Seleccione la Operación a Realizar")
 
+        st.markdown("""---""")
         st.subheader("Parámetros")
 
         if operation == 0:
-            columnNameX = Parameters.SelectAxis(
-                "Seleccione Eje X para Plotear Puntos", df)
-            columnNameY = Parameters.SelectAxis(
-                "Seleccione Eje Y para Plotear Puntos", df)
+            columnNameX = Parameters.SelectAxis("Seleccione Eje X para Plotear Puntos", df)
+            columnNameY = Parameters.SelectAxis("Seleccione Eje Y para Plotear Puntos", df)
 
             if columnNameX != columnNameY:
 
@@ -50,8 +50,10 @@ def algoritmo():
                     X = df[columnNameX].values.reshape((-1, 1))
                     Y = df[columnNameY]
 
+                    st.markdown("""---""")
                     st.subheader("Resultados")
-                 
+
+                    st.write("Gráfica de Dispersión")
                     fig, ax = plt.subplots(1,1)  #Cantidad de Graficas Filas y Columnas
                     fig.suptitle('Gráfica de Tendencia\n' + columnNameX +" vs " + columnNameY, fontsize="10")
                     fig.text(.5, -0.06, "Dispersión de Puntos, Según las Columnas Seleccionadas", style = 'italic', fontsize= 8, ha='center', color = "red")
@@ -87,6 +89,7 @@ def algoritmo():
                     errorMean = round(mean_squared_error(Y, Y_PREDICT, squared=True) , 4)
                     r2 =  round(r2_score(Y, Y_PREDICT) , 4)
 
+                    st.markdown("""---""")
                     st.subheader("Resultados")
                     modelStr = "y = {0}x {1} {2}".format(model.coef_[0], "+" if model.intercept_>0 else "",  model.intercept_)
                     
@@ -142,6 +145,7 @@ def algoritmo():
                     #Prediccion
                     Y_NEW_PREDICTION = model.predict([[numberPredict]])
 
+                    st.markdown("""---""")
                     st.subheader("Resultados")
                     modelStr = "y = {0}x {1} {2}".format(model.coef_[0], "+" if model.intercept_>0 else "",  model.intercept_)
                     
